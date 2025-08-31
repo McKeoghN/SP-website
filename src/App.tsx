@@ -1,25 +1,33 @@
 import { useState } from 'react';
 import { Home, Hammer, PencilLine as Tools, Phone, Mail, MapPin, ChevronRight, Menu, X} from 'lucide-react';
-import FadeIn from "../fadein-wrapper.tsx";
 import HeroSection from './HeroSection'; // Adjust the import path as needed
 
 function App() {
-  const [activeTab, setActiveTab] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-      
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navHeight = 64; // Height of your fixed navbar
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
     setIsMobileMenuOpen(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-amber-800 text-white shadow-lg relative">
+      {/* Fixed Navigation */}
+      <nav className="bg-amber-800 text-white shadow-lg fixed w-full top-0 z-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <button 
-              onClick={() => handleTabChange('home')}
+              onClick={() => scrollToSection('home')}
               className="flex items-center space-x-2 hover:text-amber-200 transition-colors"
             >
               <Hammer className="w-8 h-8" />
@@ -27,26 +35,26 @@ function App() {
             </button>
             <div className="hidden md:flex space-x-8">
               <button
-                onClick={() => handleTabChange('home')}
-                className={`${activeTab === 'home' ? 'text-amber-200' : 'hover:text-amber-200'}`}
+                onClick={() => scrollToSection('home')}
+                className="hover:text-amber-200 transition-colors"
               >
                 Home
               </button>
               <button
-                onClick={() => handleTabChange('about us')}
-                className={`${activeTab === 'about us' ? 'text-amber-200' : 'hover:text-amber-200'}`}
+                onClick={() => scrollToSection('about')}
+                className="hover:text-amber-200 transition-colors"
               >
                 About us
               </button>
               <button
-                onClick={() => handleTabChange('services')}
-                className={`${activeTab === 'services' ? 'text-amber-200' : 'hover:text-amber-200'}`}
+                onClick={() => scrollToSection('services')}
+                className="hover:text-amber-200 transition-colors"
               >
                 Services
               </button>
               <button
-                onClick={() => handleTabChange('contact')}
-                className={`${activeTab === 'contact' ? 'text-amber-200' : 'hover:text-amber-200'}`}
+                onClick={() => scrollToSection('contact')}
+                className="hover:text-amber-200 transition-colors"
               >
                 Contact
               </button>
@@ -65,26 +73,26 @@ function App() {
           <div className="md:hidden absolute top-16 left-0 right-0 bg-amber-800 shadow-lg z-50">
             <div className="px-4 py-2 space-y-2">
               <button
-                onClick={() => handleTabChange('home')}
-                className={`block w-full text-left py-2 px-4 rounded ${
-                  activeTab === 'home' ? 'bg-amber-700 text-amber-200' : 'hover:bg-amber-700'
-                }`}
+                onClick={() => scrollToSection('home')}
+                className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
               >
                 Home
               </button>
               <button
-                onClick={() => handleTabChange('services')}
-                className={`block w-full text-left py-2 px-4 rounded ${
-                  activeTab === 'services' ? 'bg-amber-700 text-amber-200' : 'hover:bg-amber-700'
-                }`}
+                onClick={() => scrollToSection('about')}
+                className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
+              >
+                About us
+              </button>
+              <button
+                onClick={() => scrollToSection('services')}
+                className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
               >
                 Services
               </button>
               <button
-                onClick={() => handleTabChange('contact')}
-                className={`block w-full text-left py-2 px-4 rounded ${
-                  activeTab === 'contact' ? 'bg-amber-700 text-amber-200' : 'hover:bg-amber-700'
-                }`}
+                onClick={() => scrollToSection('contact')}
+                className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
               >
                 Contact
               </button>
@@ -93,23 +101,22 @@ function App() {
         )}
       </nav>
 
-      {/* Content */}
-      <div className="container mx-auto px-4 py-8">
-        {activeTab === 'home' && (
-          <div className="space-y-8">
-            <div className="relative h-[400px] rounded-xl overflow-hidden">
-              <HeroSection />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <FadeIn>
+      {/* Add padding-top to account for fixed navbar */}
+      <div className="pt-16">
+        {/* Home Section */}
+        <section id="home" className="min-h-screen">
+          <div className="container mx-auto px-4 py-8">
+            <div className="space-y-8">
+              <div className="relative h-[400px] rounded-xl overflow-hidden">
+                <HeroSection />
+                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                  <div className="text-center text-white">
                     <h1 className="text-4xl font-bold mb-4">Quality Craftsmanship</h1>
                     <p className="text-xl">Expert carpentry and home repair services</p>
-                  </FadeIn>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <FadeIn delay={200}>
               <div className="grid md:grid-cols-3 gap-8 mt-12">
                 <div className="bg-white p-6 rounded-lg shadow-md">
                   <Home className="w-12 h-12 text-amber-800 mb-4" />
@@ -127,41 +134,35 @@ function App() {
                   <p className="text-gray-600">Quick and reliable services for your home.</p>
                 </div>
               </div>
-            </FadeIn>
+            </div>
           </div>
-        )}
+        </section>
 
-        {activeTab === 'about us' && (
+        {/* About Section */}
+        <section id="about" className="min-h-screen bg-white pt-8">
+          <div className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto space-y-8">
-              <FadeIn>
-                <h2 className="text-3xl font-bold text-center mb-8">About Us</h2>
-              </FadeIn>
-              <FadeIn delay={200}>  
-                <p className="text-lg text-gray-700 text-center">
-                At SP Carpentry & Home Maintenance, Steve brings over 35 years of experience in joinery and carpentry, offering expert craftsmanship with a personal touch. Whether it’s custom woodwork, repairs, or home improvements, every project is completed with care, precision, and a commitment to quality.
-                </p>
-              </FadeIn>
-              <FadeIn delay={400}>  
-                <p className="text-lg text-gray-700 text-center">
-                Steve’s mission is simple: to provide reliable, high-quality, and affordable carpentry and home maintenance services that enhance the beauty and functionality of your home. Based in Chelmsford, SP Carpentry proudly serves the surrounding areas, offering a trusted, local service.
-                </p>
-              </FadeIn>
-              <FadeIn delay={600}>
-                <p className="text-lg text-gray-700 text-center">
-                No job is too small—whether you need a quick repair, a full day of handyman work, or a custom-built piece, Steve is happy to help. Free quotes are always available, ensuring fair pricing and honest advice with no obligation. 
-                </p>
-              </FadeIn>
+              <h2 className="text-3xl font-bold text-center mb-8">About Us</h2>
+              <p className="text-lg text-gray-700 text-center">
+              At SP Carpentry & Home Maintenance, Steve brings over 35 years of experience in joinery and carpentry, offering expert craftsmanship with a personal touch. Whether it's custom woodwork, repairs, or home improvements, every project is completed with care, precision, and a commitment to quality.
+              </p>
+              <p className="text-lg text-gray-700 text-center">
+              Steve's mission is simple: to provide reliable, high-quality, and affordable carpentry and home maintenance services that enhance the beauty and functionality of your home. Based in Chelmsford, SP Carpentry proudly serves the surrounding areas, offering a trusted, local service.
+              </p>
+              <p className="text-lg text-gray-700 text-center">
+              No job is too small—whether you need a quick repair, a full day of handyman work, or a custom-built piece, Steve is happy to help. Free quotes are always available, ensuring fair pricing and honest advice with no obligation. 
+              </p>
+            </div>
           </div>
-        )}
+        </section>
 
-        {activeTab === 'services' && (
-          <div className="max-w-4xl mx-auto space-y-8">
-            <FadeIn>
+        {/* Services Section */}
+        <section id="services" className="min-h-screen bg-gray-50 pt-8">
+          <div className="container mx-auto px-4 py-8">
+            <div className="max-w-4xl mx-auto space-y-8">
               <h2 className="text-3xl font-bold text-center mb-8">Our Services</h2>
-            </FadeIn>
 
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <FadeIn delay={200}>
+              <div className="bg-white p-8 rounded-lg shadow-md">
                 <h3 className="text-2xl font-semibold mb-6 text-amber-800 border-b pb-2">Carpentry Services</h3>
                 <ul className="space-y-4 mb-8">
                   <li className="flex items-start">
@@ -179,9 +180,7 @@ function App() {
                     </div>
                   </li>
                 </ul>
-              </FadeIn>
 
-              <FadeIn delay={400}>
                 <h3 className="text-2xl font-semibold mb-6 text-amber-800 border-b pb-2">Home Maintenance</h3>
                 <ul className="space-y-4 mb-8">
                   <li className="flex items-start">
@@ -206,9 +205,7 @@ function App() {
                     </div>
                   </li>
                 </ul>
-              </FadeIn>
 
-              <FadeIn delay={600}>
                 <h3 className="text-2xl font-semibold mb-6 text-amber-800 border-b pb-2">Handyman Services</h3>
                 <ul className="space-y-4">
                   <li className="flex items-start">
@@ -261,32 +258,29 @@ function App() {
                     </div>
                   </li>
                 </ul>
-              </FadeIn>
 
-              <FadeIn delay={800}>
                 <div className="mt-8 text-center">
                   <button 
-                    onClick={() => handleTabChange('contact')} 
+                    onClick={() => scrollToSection('contact')} 
                     className="bg-amber-800 text-white py-2 px-6 rounded-md hover:bg-amber-700 transition-colors inline-flex items-center"
                   >
                     Get a Quote <ChevronRight className="w-4 h-4 ml-2" />
                   </button>
                 </div>
-              </FadeIn>
+              </div>
             </div>
           </div>
-        )}
+        </section>
 
-        {activeTab === 'contact' && (
-          <div className="max-w-4xl mx-auto">
-            <FadeIn>
+        {/* Contact Section */}
+        <section id="contact" className="min-h-screen bg-white pt-8">
+          <div className="container mx-auto px-4 py-8">
+            <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
               <p className="text-lg text-gray-700 text-center mb-6">
                 To contact SP Carpentry and Home Maintenance please use the contact form below or call 07789347275. We will endeavour to return your call or email within 24 hours.
               </p>
-            </FadeIn>
-            <div className="grid md:grid-cols-2 gap-8">
-              <FadeIn delay={200}>
+              <div className="grid md:grid-cols-2 gap-8">
                 <div className="bg-white p-6 rounded-lg shadow-md">
                   <form 
                     action="https://api.web3forms.com/submit" 
@@ -365,8 +359,6 @@ function App() {
                     </button>
                   </form>
                 </div>
-              </FadeIn>
-            <FadeIn delay={200}>
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
                 <div className="space-y-4">
@@ -384,10 +376,10 @@ function App() {
                   </div>
                 </div>
               </div>
-            </FadeIn>
+            </div>
+            </div>
           </div>
-          </div>
-        )}
+        </section>
       </div>
     </div>
   );
