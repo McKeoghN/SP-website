@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Home, Hammer, PencilLine as Tools, Phone, Mail, MapPin, ChevronRight, Menu, X} from 'lucide-react';
-import HeroSection from './HeroSection'; // Adjust the import path as needed
+import { Home, Hammer, PencilLine as Phone, Mail, MapPin, ChevronRight, Menu, X, ImageIcon, PenLine} from 'lucide-react';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeServiceTab, setActiveServiceTab] = useState('carpentry');
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -20,6 +20,16 @@ function App() {
     setIsMobileMenuOpen(false);
   };
 
+  // Placeholder images - add images
+  const galleryPlaceholders = [
+    { id: 1, alt: 'Custom carpentry project 1' },
+    { id: 2, alt: 'Home maintenance project 2' },
+    { id: 3, alt: 'Kitchen renovation 3' },
+    { id: 4, alt: 'Built-in shelving 4' },
+    { id: 5, alt: 'Door installation 5' },
+    { id: 6, alt: 'Garden construction 6' },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Fixed Navigation */}
@@ -30,7 +40,6 @@ function App() {
               onClick={() => scrollToSection('home')}
               className="flex items-center space-x-2 hover:text-amber-200 transition-colors"
             >
-              <Hammer className="w-8 h-8" />
               <span className="text-xl font-bold">SP Carpentry and Home Maintenance</span>
             </button>
             <div className="hidden md:flex space-x-8">
@@ -41,16 +50,22 @@ function App() {
                 Home
               </button>
               <button
+                onClick={() => scrollToSection('services')}
+                className="hover:text-amber-200 transition-colors"
+              >
+                Services
+              </button>
+              <button
                 onClick={() => scrollToSection('about')}
                 className="hover:text-amber-200 transition-colors"
               >
                 About us
               </button>
               <button
-                onClick={() => scrollToSection('services')}
+                onClick={() => scrollToSection('gallery')}
                 className="hover:text-amber-200 transition-colors"
               >
-                Services
+                Our work
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
@@ -79,16 +94,16 @@ function App() {
                 Home
               </button>
               <button
-                onClick={() => scrollToSection('about')}
-                className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
-              >
-                About us
-              </button>
-              <button
                 onClick={() => scrollToSection('services')}
                 className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
               >
                 Services
+              </button>
+              <button
+                onClick={() => scrollToSection('about')}
+                className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
+              >
+                About us
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
@@ -103,170 +118,273 @@ function App() {
 
       {/* Add padding-top to account for fixed navbar */}
       <div className="pt-16">
-        {/* Home Section */}
-        <section id="home" className="min-h-screen">
-          <div className="container mx-auto px-4 py-8">
-            <div className="space-y-8">
-              <div className="relative h-[400px] rounded-xl overflow-hidden">
-                <HeroSection />
-                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <h1 className="text-4xl font-bold mb-4">Quality Craftsmanship</h1>
-                    <p className="text-xl">Expert carpentry and home repair services</p>
+        {/* Hero Section */}
+        <section id="home" className="relative min-h-screen flex items-center">
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-900 via-amber-800 to-amber-700 opacity-90"></div>
+          <div className="absolute inset-0" style={{
+            backgroundImage: "url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"
+          }}></div>
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center text-white space-y-8">
+              <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">Quality Craftsmanship</h1>
+              <p className="text-2xl mb-8">Expert carpentry and home repair services in Chelmsford</p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <button 
+                  onClick={() => scrollToSection('contact')}
+                  className="bg-white text-amber-900 px-8 py-4 rounded-lg font-semibold hover:bg-amber-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                >
+                  Get Your Free Quote
+                </button>
+                <button 
+                  onClick={() => scrollToSection('services')}
+                  className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-amber-900 transition-all duration-300"
+                >
+                  View Services
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Service Section */}
+        <section id="services" className="py-20 bg-gradient-to-b from-amber-50 to-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Our Services</h2>
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <button
+                  onClick={() => setActiveServiceTab('maintenance')}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                    activeServiceTab === 'maintenance'
+                      ? 'bg-amber-800 text-white shadow-lg'
+                      : 'bg-white text-gray-700 hover:bg-amber-100'
+                  }`}
+                >
+                  <Home className="w-5 h-5 inline mr-2" />
+                  Home Maintenance
+                </button>
+                <button
+                  onClick={() => setActiveServiceTab('carpentry')}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                    activeServiceTab === 'carpentry'
+                      ? 'bg-amber-800 text-white shadow-lg'
+                      : 'bg-white text-gray-700 hover:bg-amber-100'
+                  }`}
+                >
+                  <PenLine className="w-5 h-5 inline mr-2" />  
+                  Carpentry
+                </button>
+                <button
+                  onClick={() => setActiveServiceTab('handyman')}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                    activeServiceTab === 'handyman'
+                      ? 'bg-amber-800 text-white shadow-lg'
+                      : 'bg-white text-gray-700 hover:bg-amber-100'
+                  }`}
+                >
+                  <Hammer className="w-5 h-5 inline mr-2" />
+                  Handyman
+                </button>
+              </div>
+
+              {/* Service Content */}
+              <div className="bg-white p-8 rounded-xl shadow-lg">
+                {activeServiceTab === 'carpentry' && (
+                  <div className="space-y-6">
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Built-in Cabinets & Shelving</h4>
+                      <p className="text-gray-600">Custom built-in solutions to maximise your space with style.</p>
+                    </div>
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Decorative Carpentry</h4>
+                      <p className="text-gray-600">Coving, Architraves and Skirting Boards</p>
+                    </div>
+                  </div>
+                )}
+
+                {activeServiceTab === 'maintenance' && (
+                  <div className="space-y-6">
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Kitchen Renovations</h4>
+                      <p className="text-gray-600">Refresh kitchens with new doors and wooden worktops</p>
+                    </div>
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Door Hanging</h4>
+                      <p className="text-gray-600">Professional door hanging services including door furniture</p>
+                    </div>
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Flooring Fitting and Repairs</h4>
+                      <p className="text-gray-600">Installation and repairs of hardwood and laminate flooring.</p>
+                    </div>
+                  </div>
+                )}
+
+                {activeServiceTab === 'handyman' && (
+                  <div className="space-y-6">
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">General Repairs</h4>
+                      <p className="text-gray-600">Quick fixes and maintenance for your home.</p>
+                    </div>
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Furniture Assembly</h4>
+                      <p className="text-gray-600">Professional assembly of flat-pack and ready-to-assemble furniture.</p>
+                    </div>
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Hanging & Mounting</h4>
+                      <p className="text-gray-600">Secure installation of TVs, artwork, shelves, and other wall-mounted items.</p>
+                    </div>
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Wooden Garden Constructions</h4>
+                      <p className="text-gray-600">Professional installation and repairs of sheds and gazebos</p>
+                    </div>
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Plumbing Jobs</h4>
+                      <p className="text-gray-600">Small jobs such as dropping radiators, toilet and shower installation and repair. *cannot do gas work*</p>
+                    </div>
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Gutter Repairs</h4>
+                      <p className="text-gray-600">Quick and efficient gutter repairs</p>
+                    </div>
+                    <div className="border-l-4 border-amber-800 pl-6 py-4 hover:bg-amber-50 transition-colors rounded">
+                      <h4 className="font-semibold text-xl mb-2">Tiling</h4>
+                      <p className="text-gray-600">Bespoke tiling</p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-8 pt-6 border-t text-center">
+                  <p className="text-gray-600 mb-4">Free quotes available • No job too small</p>
+                  <button 
+                    onClick={() => scrollToSection('contact')}
+                    className="bg-amber-800 text-white py-3 px-8 rounded-lg hover:bg-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg inline-flex items-center"
+                  >
+                    Get Your Free Quote <ChevronRight className="w-5 h-5 ml-2" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        {/* About Section */}
+        <section id="about" className="py-20 bg-gradient-to-b from-white to-amber-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">About Us</h2>
+              
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                {/* Left side - Image placeholder */}
+                <div className="relative">
+                  <div className="aspect-square rounded-2xl shadow-xl overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      {/* <div className="text-center">
+                        <ImageIcon className="w-24 h-24 text-amber-600 mx-auto mb-4" />
+                        <p className="text-amber-700 font-medium">Photo of little Stevie</p>
+                      </div> */}
+                      <div className="aspect-square rounded-2xl shadow-xl overflow-hidden">
+                        <img 
+                          src="img/logo transparent.png" 
+                          alt="SP Carpentry Logo" 
+                          className="w-full h-full object-contain p-8"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {/* Decorative element */}
+                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-amber-800 rounded-2xl -z-10"></div>
+                </div>
+
+                {/* Right side - Content */}
+                <div className="space-y-6">
+                  <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-amber-800">
+                    <h3 className="text-xl font-semibold mb-3 text-amber-900">Expert Craftsmanship</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      At SP Carpentry & Home Maintenance, Steve brings over 35 years of experience in joinery and carpentry, offering expert craftsmanship with a personal touch. Whether it's custom woodwork, repairs, or home improvements, every project is completed with care, precision, and a commitment to quality.
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-amber-800">
+                    <h3 className="text-xl font-semibold mb-3 text-amber-900">Our Mission</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      To provide reliable, high-quality, and affordable carpentry and home maintenance services that enhance the beauty and functionality of your home. Based in Chelmsford, SP Carpentry proudly serves the surrounding areas, offering a trusted, local service.
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-amber-800">
+                    <h3 className="text-xl font-semibold mb-3 text-amber-900">No Job Too Small</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      Whether you need a quick repair, a full day of handyman work, or a custom-built piece, Steve is happy to help. Free quotes are always available, ensuring fair pricing and honest advice with no obligation.
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8 mt-12">
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <Home className="w-12 h-12 text-amber-800 mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Home Maintenance</h3>
-                  <p className="text-gray-600">Home maintenance services tailored to your needs.</p>
+              {/* Bottom features */}
+              {/* <div className="grid md:grid-cols-3 gap-6 mt-16">
+                <div className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow">
+                  <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Award className="w-8 h-8 text-amber-800" />
+                  </div>
+                  <h4 className="font-semibold text-lg mb-2">Trusted Professional</h4>
+                  <p className="text-gray-600">Reliable service you can count on</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <Tools className="w-12 h-12 text-amber-800 mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Custom Carpentry</h3>
-                  <p className="text-gray-600">Bespoke furniture and woodwork created just for you.</p>
+
+                <div className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow">
+                  <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Star className="w-8 h-8 text-amber-800 fill-current" />
+                  </div>
+                  <h4 className="font-semibold text-lg mb-2">Quality Guaranteed</h4>
+                  <p className="text-gray-600">Excellence in every project</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <Hammer className="w-12 h-12 text-amber-800 mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Handyman jobs</h3>
-                  <p className="text-gray-600">Quick and reliable services for your home.</p>
+
+                <div className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow">
+                  <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <MapPin className="w-8 h-8 text-amber-800" />
+                  </div>
+                  <h4 className="font-semibold text-lg mb-2">Local Service</h4>
+                  <p className="text-gray-600">Serving Chelmsford & surrounding areas</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
 
-        {/* About Section */}
-        <section id="about" className="min-h-screen bg-white pt-8">
-          <div className="container mx-auto px-4 py-8">
-            <div className="max-w-4xl mx-auto space-y-8">
-              <h2 className="text-3xl font-bold text-center mb-8">About Us</h2>
-              <p className="text-lg text-gray-700 text-center">
-              At SP Carpentry & Home Maintenance, Steve brings over 35 years of experience in joinery and carpentry, offering expert craftsmanship with a personal touch. Whether it's custom woodwork, repairs, or home improvements, every project is completed with care, precision, and a commitment to quality.
-              </p>
-              <p className="text-lg text-gray-700 text-center">
-              Steve's mission is simple: to provide reliable, high-quality, and affordable carpentry and home maintenance services that enhance the beauty and functionality of your home. Based in Chelmsford, SP Carpentry proudly serves the surrounding areas, offering a trusted, local service.
-              </p>
-              <p className="text-lg text-gray-700 text-center">
-              No job is too small—whether you need a quick repair, a full day of handyman work, or a custom-built piece, Steve is happy to help. Free quotes are always available, ensuring fair pricing and honest advice with no obligation. 
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Services Section */}
-        <section id="services" className="min-h-screen bg-gray-50 pt-8">
-          <div className="container mx-auto px-4 py-8">
-            <div className="max-w-4xl mx-auto space-y-8">
-              <h2 className="text-3xl font-bold text-center mb-8">Our Services</h2>
-
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-2xl font-semibold mb-6 text-amber-800 border-b pb-2">Carpentry Services</h3>
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-start">
-                    <Tools className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Built-in Cabinets & Shelving</p>
-                      <p className="text-gray-600">Custom built-in solutions to maximise your space with style.</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <Tools className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Decorative Carpentry</p>
-                      <p className="text-gray-600">Coving, Architraves and Skirting Boards</p>
-                    </div>
-                  </li>
-                </ul>
-
-                <h3 className="text-2xl font-semibold mb-6 text-amber-800 border-b pb-2">Home Maintenance</h3>
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-start">
-                    <Home className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Kitchen Renovations</p>
-                      <p className="text-gray-600">Refresh kitchens with new doors and wooden worktops</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <Home className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Door Hanging</p>
-                      <p className="text-gray-600">Professional door hanging services including door furniture</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <Home className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Flooring Fitting and Repairs</p>
-                      <p className="text-gray-600">Installation and repairs of hardwood and laminate flooring.</p>
-                    </div>
-                  </li>
-                </ul>
-
-                <h3 className="text-2xl font-semibold mb-6 text-amber-800 border-b pb-2">Handyman Services</h3>
-                <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <Hammer className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">General Repairs</p>
-                      <p className="text-gray-600">Quick fixes and maintenance for your home.</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <Hammer className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Furniture Assembly</p>
-                      <p className="text-gray-600">Professional assembly of flat-pack and ready-to-assemble furniture.</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <Hammer className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Hanging & Mounting</p>
-                      <p className="text-gray-600">Secure installation of TVs, artwork, shelves, and other wall-mounted items.</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <Hammer className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Wooden Garden Constructions</p>
-                      <p className="text-gray-600">Professional installation and repairs of sheds and gazebos</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <Hammer className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Plumbing Jobs</p>
-                      <p className="text-gray-600">Small jobs such as dropping radiators, toilet and shower installation and repair. *cannot do gas work*</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <Hammer className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Gutter repairs</p>
-                      <p className="text-gray-600">Quick and efficient gutter repairs</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <Hammer className="w-5 h-5 text-amber-800 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Tiling</p>
-                      <p className="text-gray-600">Bespoke tiling</p>
-                    </div>
-                  </li>
-                </ul>
-
-                <div className="mt-8 text-center">
-                  <button 
-                    onClick={() => scrollToSection('contact')} 
-                    className="bg-amber-800 text-white py-2 px-6 rounded-md hover:bg-amber-700 transition-colors inline-flex items-center"
+        
+        {/* Image Section */}
+        <section id="gallery" className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">Our Work</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {galleryPlaceholders.map((item) => (
+                  <div 
+                    key={item.id}
+                    className="relative aspect-square bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 group cursor-pointer"
                   >
-                    Get a Quote <ChevronRight className="w-4 h-4 ml-2" />
-                  </button>
-                </div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center">
+                        <ImageIcon className="w-16 h-16 text-gray-400 mx-auto mb-2" />
+                        <p className="text-gray-500 text-sm">Add your photo here</p>
+                      </div>
+                    </div>
+                    
+                    <div className="absolute inset-0 bg-amber-900 bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300 flex items-center justify-center">
+                      <p className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold px-4">
+                        {item.alt}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-12 text-center bg-amber-50 p-6 rounded-lg">
+                <h3 className="font-semibold text-lg mb-2">How to Add Your Photos</h3>
+                <p className="text-gray-600">
+                  Replace the placeholder divs with img tags containing your actual project images. Each image should showcase your best work!
+                </p>
               </div>
             </div>
           </div>
@@ -293,8 +411,7 @@ function App() {
                     name="access_key" 
                     value={import.meta.env.VITE_WEB3FORMS_ACCESS_KEY} 
                   />
-                    
-                    {/* Optional: Redirect after submission */}
+
                     <input 
                       type="hidden" 
                       name="redirect" 
@@ -380,6 +497,16 @@ function App() {
             </div>
           </div>
         </section>
+
+        <footer className="bg-gradient-to-r from-amber-900 to-amber-800 text-white py-8"> 
+          <div className="container mx-auto px-4 text-center">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <span className="font-bold text-lg">SP Carpentry & Home Maintenance</span>
+            </div>
+            <p className="text-amber-200">35+ Years of Quality Craftsmanship</p>
+            <p className="text-amber-200 mt-2">Chelmsford, Essex</p>
+          </div>
+        </footer>
       </div>
     </div>
   );
