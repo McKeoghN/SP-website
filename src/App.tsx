@@ -20,14 +20,13 @@ function App() {
     setIsMobileMenuOpen(false);
   };
 
-  // Placeholder images - add images
-  const galleryPlaceholders = [
-    { id: 1, alt: 'Custom carpentry project 1' },
-    { id: 2, alt: 'Home maintenance project 2' },
-    { id: 3, alt: 'Kitchen renovation 3' },
-    { id: 4, alt: 'Built-in shelving 4' },
-    { id: 5, alt: 'Door installation 5' },
-    { id: 6, alt: 'Garden construction 6' },
+  const galleryImages = [
+    { id: 1, src: 'img/Door.jpg', alt: 'Door Installation' },
+    { id: 2, src: 'img/Floor.jpg', alt: 'Floor Installation' },
+    { id: 3, src: 'img/Stairs.jpg', alt: 'Stair Installation' },
+    // { id: 4, src: '/path/to/image4.jpg', alt: 'Built-in shelving 4' },
+    // { id: 5, src: '/path/to/image5.jpg', alt: 'Door installation 5' },
+    // { id: 6, src: '/path/to/image6.jpg', alt: 'Garden construction 6' },
   ];
 
   return (
@@ -43,12 +42,6 @@ function App() {
               <span className="text-xl font-bold">SP Carpentry and Home Maintenance</span>
             </button>
             <div className="hidden md:flex space-x-8">
-              <button
-                onClick={() => scrollToSection('home')}
-                className="hover:text-amber-200 transition-colors"
-              >
-                Home
-              </button>
               <button
                 onClick={() => scrollToSection('services')}
                 className="hover:text-amber-200 transition-colors"
@@ -88,12 +81,6 @@ function App() {
           <div className="md:hidden absolute top-16 left-0 right-0 bg-amber-800 shadow-lg z-50">
             <div className="px-4 py-2 space-y-2">
               <button
-                onClick={() => scrollToSection('home')}
-                className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
-              >
-                Home
-              </button>
-              <button
                 onClick={() => scrollToSection('services')}
                 className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
               >
@@ -104,6 +91,12 @@ function App() {
                 className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
               >
                 About us
+              </button>
+              <button
+                onClick={() => scrollToSection('gallery')}
+                className="block w-full text-left py-2 px-4 rounded hover:bg-amber-700"
+              >
+                Our work
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
@@ -127,8 +120,21 @@ function App() {
           
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center text-white space-y-8">
-              <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">Quality Craftsmanship</h1>
-              <p className="text-2xl mb-8">Expert carpentry and home repair services in Chelmsford</p>
+              {/* Logo centered */}
+              <div className="flex justify-center mb-8">
+                <div className="rounded-2xl">
+                  <img 
+                    src="img/logo transparent.png" 
+                    alt="SP Carpentry & Home Maintenance Logo" 
+                    className="h-72 w-auto mx-auto"
+                  />
+                </div>
+              </div>
+              
+              {/* Tagline */}
+              <p className="text-2xl md:text-3xl mb-4 font-light">35+ years of Quality Craftsmanship</p>
+              {/* <p className="text-xl md:text-2xl mb-8 text-100">35+ Years of Expert Carpentry & Home Repair Services in Chelmsford</p> */}
+              
               <div className="flex flex-wrap justify-center gap-4">
                 <button 
                   onClick={() => scrollToSection('contact')}
@@ -151,7 +157,7 @@ function App() {
         <section id="services" className="py-20 bg-gradient-to-b from-amber-50 to-white">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
-              <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Our Services</h2>
+              <h2 className="text-4xl font-bold text-center -mt-10 mb-12 text-gray-800">Our Services</h2>
               <div className="flex flex-wrap justify-center gap-4 mb-8">
                 <button
                   onClick={() => setActiveServiceTab('maintenance')}
@@ -272,7 +278,7 @@ function App() {
         <section id="about" className="py-20 bg-gradient-to-b from-white to-amber-50">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">About Us</h2>
+              <h2 className="text-4xl font-bold text-center -mt-10 mb-6 text-gray-800">About Us</h2>
               
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 {/* Left side - Image placeholder */}
@@ -285,7 +291,7 @@ function App() {
                       </div> */}
                       <div className="aspect-square rounded-2xl shadow-xl overflow-hidden">
                         <img 
-                          src="img/logo transparent.png" 
+                          src="img/Steve.JPG" 
                           alt="SP Carpentry Logo" 
                           className="w-full h-full object-contain p-8"
                         />
@@ -320,56 +326,37 @@ function App() {
                   </div>
                 </div>
               </div>
-
-              {/* Bottom features */}
-              {/* <div className="grid md:grid-cols-3 gap-6 mt-16">
-                <div className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow">
-                  <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Award className="w-8 h-8 text-amber-800" />
-                  </div>
-                  <h4 className="font-semibold text-lg mb-2">Trusted Professional</h4>
-                  <p className="text-gray-600">Reliable service you can count on</p>
-                </div>
-
-                <div className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow">
-                  <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Star className="w-8 h-8 text-amber-800 fill-current" />
-                  </div>
-                  <h4 className="font-semibold text-lg mb-2">Quality Guaranteed</h4>
-                  <p className="text-gray-600">Excellence in every project</p>
-                </div>
-
-                <div className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow">
-                  <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <MapPin className="w-8 h-8 text-amber-800" />
-                  </div>
-                  <h4 className="font-semibold text-lg mb-2">Local Service</h4>
-                  <p className="text-gray-600">Serving Chelmsford & surrounding areas</p>
-                </div>
-              </div> */}
             </div>
           </div>
         </section>
 
         
-        {/* Image Section */}
+        {/* Gallery Section */}
         <section id="gallery" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">Our Work</h2>
-              
+              <h2 className="text-4xl font-bold text-center -mt-10 mb-8 text-gray-800">Our Work</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {galleryPlaceholders.map((item) => (
+                {galleryImages.map((item) => (
                   <div 
                     key={item.id}
                     className="relative aspect-square bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 group cursor-pointer"
                   >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <ImageIcon className="w-16 h-16 text-gray-400 mx-auto mb-2" />
-                        <p className="text-gray-500 text-sm">Add your photo here</p>
+                    {/* Check if image path is placeholder */}
+                    {item.src.includes('/path/to/') ? (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <ImageIcon className="w-16 h-16 text-gray-400 mx-auto mb-2" />
+                          <p className="text-gray-500 text-sm">Add your photo here</p>
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <img 
+                        src={item.src} 
+                        alt={item.alt}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
                     
                     <div className="absolute inset-0 bg-amber-900 bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300 flex items-center justify-center">
                       <p className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold px-4">
@@ -379,13 +366,6 @@ function App() {
                   </div>
                 ))}
               </div>
-              
-              <div className="mt-12 text-center bg-amber-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-lg mb-2">How to Add Your Photos</h3>
-                <p className="text-gray-600">
-                  Replace the placeholder divs with img tags containing your actual project images. Each image should showcase your best work!
-                </p>
-              </div>
             </div>
           </div>
         </section>
@@ -394,7 +374,7 @@ function App() {
         <section id="contact" className="min-h-screen bg-white pt-8">
           <div className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
+              <h2 className="text-3xl font-bold text-center -mt-10 mb-8">Contact Us</h2>
               <p className="text-lg text-gray-700 text-center mb-6">
                 To contact SP Carpentry and Home Maintenance please use the contact form below or call 07789347275. We will endeavour to return your call or email within 24 hours.
               </p>
