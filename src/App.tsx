@@ -141,8 +141,7 @@ function App() {
               
               {/* Tagline */}
               <p className="text-2xl md:text-3xl mb-4 font-light">35+ years of Quality Craftsmanship</p>
-              {/* <p className="text-xl md:text-2xl mb-8 text-100">35+ Years of Expert Carpentry & Home Repair Services in Chelmsford</p> */}
-              
+
               <div className="flex flex-wrap justify-center gap-4">
                 <button 
                   onClick={() => scrollToSection('contact')}
@@ -343,7 +342,7 @@ function App() {
         <section id="gallery" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">Our Work</h2>
+              <h2 className="text-4xl font-bold text-center -mt-10 mb-4 text-gray-800">Our Work</h2>
               <p className="text-center text-gray-600 mb-12 text-lg">See examples of our quality craftsmanship</p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -365,13 +364,6 @@ function App() {
                     </div>
                   </div>
                 ))}
-              </div>
-              
-              <div className="mt-12 text-center bg-amber-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-lg mb-2">How to Add Your Photos</h3>
-                <p className="text-gray-600">
-                  Replace the placeholder divs with img tags containing your actual project images. Each image should showcase your best work!
-                </p>
               </div>
             </div>
           </div>
