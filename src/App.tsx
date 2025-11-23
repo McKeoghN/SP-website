@@ -21,12 +21,12 @@ function App() {
   };
 
   const galleryImages = [
-    { id: 1, src: 'img/Door.jpg', alt: 'Door Installation' },
-    { id: 2, src: 'img/Floor.jpg', alt: 'Floor Installation' },
-    { id: 3, src: 'img/Stairs.jpg', alt: 'Stair Installation' },
-    // { id: 4, src: '/path/to/image4.jpg', alt: 'Built-in shelving 4' },
-    // { id: 5, src: '/path/to/image5.jpg', alt: 'Door installation 5' },
-    // { id: 6, src: '/path/to/image6.jpg', alt: 'Garden construction 6' },
+    { id: 1, src: 'img/Flooring.jpg', alt: 'Patio Repairs' },
+    { id: 2, src: 'img/Tiling.jpg', alt: 'Bathroom Tiling' },
+    { id: 3, src: 'img/Door.jpg', alt: 'Door Installation' },
+    { id: 4, src: 'img/Floor.jpg', alt: 'Floor Installation' },
+    { id: 5, src: 'img/Stairs.jpg', alt: 'Stair Installation' },
+    { id: 6, src: 'img/Sink.jpg', alt: 'Bathroom Installation'},
   ];
 
   return (
