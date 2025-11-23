@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Home, Hammer, PencilLine as Phone, Mail, MapPin, ChevronRight, Menu, X, PenLine} from 'lucide-react';
 import logo from '/img/logo.png';
-import flooring from '/img/Flooring.jpg';
+import flooring from '/img/Flooring.JPG';
 import door from '/img/Door.jpg';
-import sink from '/img/Sink.jpg';
+import sink from '/img/Sink.JPG';
 import floor from '/img/Floor.jpg';
 import stairs from '/img/Stairs.jpg';
-import tiling from '/img/Tiling.jpg';
+import tiling from '/img/Tiling.JPG';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -298,7 +298,7 @@ function App() {
                       </div> */}
                       <div className="aspect-square rounded-2xl shadow-xl overflow-hidden">
                         <img 
-                          src="img/Steve.JPG" 
+                          src="/img/Steve.JPG" 
                           alt="SP Carpentry Logo" 
                           className="w-full h-full object-contain p-8"
                         />
