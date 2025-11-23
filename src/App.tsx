@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { Home, Hammer, PencilLine as Phone, Mail, MapPin, ChevronRight, Menu, X, ImageIcon, PenLine} from 'lucide-react';
+import { Home, Hammer, PencilLine as Phone, Mail, MapPin, ChevronRight, Menu, X, PenLine} from 'lucide-react';
+import logo from '/img/logo.png';
+import flooring from '/img/Flooring.jpg';
+import door from '/img/Door.jpg';
+import sink from '/img/Sink.jpg';
+import floor from '/img/Floor.jpg';
+import stairs from '/img/Stairs.jpg';
+import tiling from '/img/Tiling.jpg';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,12 +28,12 @@ function App() {
   };
 
   const galleryImages = [
-    { id: 1, src: 'img/Flooring.jpg', alt: 'Patio Repairs' },
-    { id: 2, src: 'img/Tiling.jpg', alt: 'Bathroom Tiling' },
-    { id: 3, src: 'img/Door.jpg', alt: 'Door Installation' },
-    { id: 4, src: 'img/Floor.jpg', alt: 'Floor Installation' },
-    { id: 5, src: 'img/Stairs.jpg', alt: 'Stair Installation' },
-    { id: 6, src: 'img/Sink.jpg', alt: 'Bathroom Installation'},
+    { id: 1, src: flooring, alt: 'Patio Repairs' },
+    { id: 2, src: tiling, alt: 'Bathroom Tiling' },
+    { id: 3, src: door, alt: 'Door Installation' },
+    { id: 4, src: floor, alt: 'Floor Installation' },
+    { id: 5, src: stairs, alt: 'Stair Installation' },
+    { id: 6, src: sink, alt: 'Bathroom Installation'},
   ];
 
   return (
@@ -124,7 +131,7 @@ function App() {
               <div className="flex justify-center mb-8">
                 <div className="rounded-2xl">
                   <img 
-                    src="img/logo transparent.png" 
+                    src={logo}
                     alt="SP Carpentry & Home Maintenance Logo" 
                     className="h-72 w-auto mx-auto"
                   />
@@ -335,28 +342,20 @@ function App() {
         <section id="gallery" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-bold text-center -mt-10 mb-8 text-gray-800">Our Work</h2>
+              <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">Our Work</h2>
+              <p className="text-center text-gray-600 mb-12 text-lg">See examples of our quality craftsmanship</p>
+              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {galleryImages.map((item) => (
                   <div 
                     key={item.id}
                     className="relative aspect-square bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 group cursor-pointer"
                   >
-                    {/* Check if image path is placeholder */}
-                    {item.src.includes('/path/to/') ? (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center">
-                          <ImageIcon className="w-16 h-16 text-gray-400 mx-auto mb-2" />
-                          <p className="text-gray-500 text-sm">Add your photo here</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <img 
-                        src={item.src} 
-                        alt={item.alt}
-                        className="w-full h-full object-cover"
-                      />
-                    )}
+                    <img 
+                      src={item.src} 
+                      alt={item.alt}
+                      className="w-full h-full object-cover"
+                    />
                     
                     <div className="absolute inset-0 bg-amber-900 bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300 flex items-center justify-center">
                       <p className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold px-4">
@@ -365,6 +364,13 @@ function App() {
                     </div>
                   </div>
                 ))}
+              </div>
+              
+              <div className="mt-12 text-center bg-amber-50 p-6 rounded-lg">
+                <h3 className="font-semibold text-lg mb-2">How to Add Your Photos</h3>
+                <p className="text-gray-600">
+                  Replace the placeholder divs with img tags containing your actual project images. Each image should showcase your best work!
+                </p>
               </div>
             </div>
           </div>
