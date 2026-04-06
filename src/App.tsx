@@ -3,7 +3,7 @@ import { Home, Hammer, PencilLine as Phone, Mail, MapPin, ChevronRight, Menu, X,
 import logo from '/img/logo.png';
 import flooring from '/img/Flooring.JPG';
 import door from '/img/Door.jpg';
-import shelf from '/img/Shelf.JPG';
+import shelf from '/img/Shelf.jpg';
 import floor from '/img/Floor.jpg';
 import book_shelve from '/img/BookShelve.jpg';
 import tiling from '/img/Tiling.JPG';
