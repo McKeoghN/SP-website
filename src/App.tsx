@@ -264,8 +264,7 @@ function App() {
         <section id="gallery" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-bold text-center -mt-10 mb-4 text-gray-800">Our Work</h2>
-              <p className="text-center text-gray-600 mb-12 text-lg">See examples of our quality craftsmanship</p>
+              <h2 className="text-4xl font-bold text-center -mt-10 mb-4 text-gray-800">Our Work</h2><br/>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {galleryImages.map((item) => (
                   <div 
